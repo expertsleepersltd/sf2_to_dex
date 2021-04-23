@@ -7,5 +7,5 @@ Python tool to extract WAV files from .sf2 (SoundFont®) files in a format optim
 Be sure to located sf2 files are in same directory with this script.
 
 ```python
-python sf2_to_dex fileToExtract.sf2
+python sf2_to_dex.py fileToExtract.sf2
 ```
