@@ -9,3 +9,7 @@ Be sure to located sf2 files are in same directory with this script.
 ```python
 python sf2_to_dex.py fileToExtract.sf2
 ```
+
+# sf2dex3py
+Version that will run in contemporary Python 3.
+
