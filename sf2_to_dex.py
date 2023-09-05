@@ -38,13 +38,13 @@ with open(sf2file, 'rb') as F:
 		except EOFError:
 			break
 		name = chunk.getname()
-		print name
+		print (name)
 		if name == 'LIST':
 			listname = chfile.read(4)
-			print '\t', listname
+			print ('\t', listname)
 		elif name == 'smpl':
 			sampleDataStart = chfile.tell() + 8
-			print 'sample data starts at', sampleDataStart
+			print ('sample data starts at', sampleDataStart)
 			chunk.skip()
 		elif name == 'shdr':
 			for i in range( ( chunk.chunksize/46 ) - 1 ):
@@ -66,7 +66,7 @@ with open(sf2file, 'rb') as F:
 
 for s in samples:
 	typeName = sampleTypes[ s.type & 0x7fff ]
-	print '%s %d %d %d %d %d %d %d %d %s' % ( s.name, s.start, s.end, s.startLoop, s.endLoop, s.sampleRate, s.pitch, s.correction, s.link, typeName )
+	print ('%s %d %d %d %d %d %d %d %d %s' % ( s.name, s.start, s.end, s.startLoop, s.endLoop, s.sampleRate, s.pitch, s.correction, s.link, typeName ))
 
 noteNames = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B']
 
@@ -75,7 +75,7 @@ F2 = open(sf2file, 'rb')
 
 folderName = os.path.basename( sf2file ).split('.')[0]
 folderName = "".join(x for x in folderName if x.isalnum() or x ==' ')
-print folderName
+print (folderName)
 
 if not os.path.exists( folderName ):
 	os.mkdir( folderName )
@@ -89,7 +89,7 @@ for s in samples:
 	filename += noteNames[ s.pitch % 12 ]
 	filename += str( ( s.pitch/12 ) - 1 )
 	filename += '.wav'
-	print filename
+	print (filename)
 	G = wave.open( filename, 'w' )
 	G.setsampwidth( 2 )
 	G.setframerate( s.sampleRate )
