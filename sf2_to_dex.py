@@ -1,4 +1,4 @@
-from chunk import Chunk
+from chunkmuncher.chunk import Chunk
 import os, sys, struct
 import wave
 
@@ -39,15 +39,15 @@ with open(sf2file, 'rb') as F:
 			break
 		name = chunk.getname()
 		print (name)
-		if name == 'LIST':
+		if name == b'LIST':
 			listname = chfile.read(4)
 			print ('\t', listname)
-		elif name == 'smpl':
+		elif name == b'smpl':
 			sampleDataStart = chfile.tell() + 8
 			print ('sample data starts at', sampleDataStart)
 			chunk.skip()
-		elif name == 'shdr':
-			for i in range( ( chunk.chunksize/46 ) - 1 ):
+		elif name == b'shdr':
+			for i in range( ( chunk.chunksize // 46 ) - 1 ):
 				s = sfSample()
 				s.name = chfile.read(20)
 				s.start = _read_dword( chfile )
@@ -84,10 +84,10 @@ os.chdir( folderName )
 for s in samples:
 	if s.type not in [1,4]:
 		continue
-	filename = "".join(x for x in s.name if x.isalnum())
+	filename = "".join( x for x in s.name.decode('utf-8', 'replace') if x.isalnum() )
 	filename += '_'
 	filename += noteNames[ s.pitch % 12 ]
-	filename += str( ( s.pitch/12 ) - 1 )
+	filename += str( ( s.pitch // 12 ) - 1 )
 	filename += '.wav'
 	print (filename)
 	G = wave.open( filename, 'w' )
